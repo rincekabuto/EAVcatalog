@@ -1,0 +1,30 @@
+.container-fluid{
+    margin-top:26px;
+}
+.items .btn-mini, .datatype .btn-mini{
+    margin-top:-12px;
+}
+.datatype hr{
+    margin: 10px 0;
+}
+a.active{
+    background-color: rgb(179, 209, 230);
+    padding:3px;
+    border-radius: 3px;
+}
+span.controls{
+    display:none;
+}
+.items .well{
+    background-color: rgb(238, 235, 235);
+}
+.sections ul li{
+	list-style-type: square;
+}
+fieldset.datatype-prop legend{
+    font-size: 14px;
+    line-height:26px;
+}
+fieldset.datatype-prop{
+    margin-bottom:26px;
+}

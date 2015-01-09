@@ -1,0 +1,235 @@
+-- phpMyAdmin SQL Dump
+-- version 3.5.8.1
+-- http://www.phpmyadmin.net
+--
+-- Хост: 127.0.0.1
+-- Время создания: Май 30 2013 г., 08:05
+-- Версия сервера: 5.6.11-log
+-- Версия PHP: 5.4.14
+
+SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+
+--
+-- База данных: `projet2`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `datatype`
+--
+
+CREATE TABLE IF NOT EXISTS `datatype` (
+  `id_datatype` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id_datatype`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=112 ;
+
+--
+-- Дамп данных таблицы `datatype`
+--
+
+INSERT INTO `datatype` (`id_datatype`, `name`) VALUES
+(107, 'Колесо'),
+(108, 'Сок'),
+(110, 'Батут'),
+(111, 'Каска');
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `item`
+--
+
+CREATE TABLE IF NOT EXISTS `item` (
+  `id_item` int(11) NOT NULL AUTO_INCREMENT,
+  `id_datatype` int(11) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `id_structure` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id_item`),
+  KEY `id_datatype_idx` (`id_datatype`),
+  KEY `id_structure_idx` (`id_structure`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=34 ;
+
+--
+-- Дамп данных таблицы `item`
+--
+
+INSERT INTO `item` (`id_item`, `id_datatype`, `name`, `id_structure`) VALUES
+(16, 108, 'J7', 27),
+(17, 108, 'Добрый', 28),
+(19, 107, 'Bridgestone', 32),
+(21, 108, '100% GOLD', 34),
+(25, 111, 'CУпер каска', 39),
+(26, 107, 'Michelin', 40),
+(27, 108, 'Абрикосовый фрэш', 41),
+(28, 107, 'Bridgestone', 42),
+(29, 107, 'Bridgestone', 43),
+(30, 107, 'Bridgestone', 44),
+(31, 107, 'Bridgestone', 45),
+(32, 110, 'Батут', 46),
+(33, 110, 'Батут №2', 47);
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `item_attribute`
+--
+
+CREATE TABLE IF NOT EXISTS `item_attribute` (
+  `id_item_attribute` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) DEFAULT NULL,
+  `id_datatype` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id_item_attribute`),
+  KEY `id_datatype_idx` (`id_datatype`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=20 ;
+
+--
+-- Дамп данных таблицы `item_attribute`
+--
+
+INSERT INTO `item_attribute` (`id_item_attribute`, `name`, `id_datatype`) VALUES
+(3, 'Ширина', 107),
+(4, 'Диаметр', 107),
+(6, 'Объем', 108),
+(13, 'Цвет', 111),
+(15, 'Контраст', 111),
+(16, 'Торговая марка', 108),
+(17, 'Сезон', 107),
+(18, 'Шипы', 107);
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `item_attribute_value`
+--
+
+CREATE TABLE IF NOT EXISTS `item_attribute_value` (
+  `id_item_attribute_value` int(11) NOT NULL AUTO_INCREMENT,
+  `id_item_attrubute` int(11) DEFAULT NULL,
+  `value` varchar(255) DEFAULT NULL,
+  `id_item` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id_item_attribute_value`),
+  KEY `id_item_attribute_idx` (`id_item_attrubute`),
+  KEY `fk_id_item_idx` (`id_item`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=118 ;
+
+--
+-- Дамп данных таблицы `item_attribute_value`
+--
+
+INSERT INTO `item_attribute_value` (`id_item_attribute_value`, `id_item_attrubute`, `value`, `id_item`) VALUES
+(60, 6, '0.333', 16),
+(62, 6, '0.33', 17),
+(66, 3, '565', 19),
+(67, 4, '303', 19),
+(71, 6, '0.5', 21),
+(89, 17, 'Летняя', 19),
+(90, 16, 'J7', 16),
+(91, 13, 'Хаки', 25),
+(92, 15, 'не очень', 25),
+(93, 3, '100', 26),
+(94, 4, '123', 26),
+(96, 17, 'Зимняя', 26),
+(97, 6, '0.5', 27),
+(98, 16, 'no name', 27),
+(99, 18, 'Да', 19),
+(100, 16, 'Добрый', 17),
+(101, 3, '66', 28),
+(102, 4, '123', 28),
+(103, 17, 'Зимняя', 28),
+(104, 18, 'Да', 28),
+(105, 3, '56', 29),
+(106, 4, '123', 29),
+(107, 17, 'Зимняя', 29),
+(108, 18, 'Да', 29),
+(109, 3, '66', 30),
+(110, 4, '123', 30),
+(111, 17, 'Летняя', 30),
+(112, 18, 'Да', 30),
+(113, 16, 'GOLD', 21),
+(114, 3, '100', 31),
+(115, 4, '123', 31),
+(116, 17, 'Летняя', 31),
+(117, 18, 'Нет', 31);
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `structure`
+--
+
+CREATE TABLE IF NOT EXISTS `structure` (
+  `id_structure` int(11) NOT NULL AUTO_INCREMENT,
+  `id_structure_parent` int(11) DEFAULT NULL,
+  `name` varchar(255) NOT NULL,
+  `type` enum('item','section') NOT NULL,
+  PRIMARY KEY (`id_structure`),
+  KEY `id_structure_idx` (`id_structure_parent`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=48 ;
+
+--
+-- Дамп данных таблицы `structure`
+--
+
+INSERT INTO `structure` (`id_structure`, `id_structure_parent`, `name`, `type`) VALUES
+(4, NULL, 'Каталог', 'section'),
+(5, 4, 'Шины', 'section'),
+(6, 4, 'Только сок', 'section'),
+(7, 4, 'Только ТВ', 'section'),
+(9, 4, 'Шины и сок', 'section'),
+(27, 4, '', 'item'),
+(28, 4, '', 'item'),
+(29, 4, 'Раздел', 'section'),
+(32, 4, '', 'item'),
+(34, 4, '', 'item'),
+(39, 4, '', 'item'),
+(40, 4, '', 'item'),
+(41, 6, '', 'item'),
+(42, 4, '', 'item'),
+(43, 4, '', 'item'),
+(44, 4, '', 'item'),
+(45, 4, '', 'item'),
+(46, 4, '', 'item'),
+(47, 4, '', 'item');
+
+--
+-- Ограничения внешнего ключа сохраненных таблиц
+--
+
+--
+-- Ограничения внешнего ключа таблицы `item`
+--
+ALTER TABLE `item`
+  ADD CONSTRAINT `fk_id_datatype` FOREIGN KEY (`id_datatype`) REFERENCES `datatype` (`id_datatype`) ON DELETE CASCADE ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_id_structure` FOREIGN KEY (`id_structure`) REFERENCES `structure` (`id_structure`) ON DELETE CASCADE ON UPDATE NO ACTION;
+
+--
+-- Ограничения внешнего ключа таблицы `item_attribute`
+--
+ALTER TABLE `item_attribute`
+  ADD CONSTRAINT `id_datatype` FOREIGN KEY (`id_datatype`) REFERENCES `datatype` (`id_datatype`) ON DELETE CASCADE ON UPDATE NO ACTION;
+
+--
+-- Ограничения внешнего ключа таблицы `item_attribute_value`
+--
+ALTER TABLE `item_attribute_value`
+  ADD CONSTRAINT `fk_id_item` FOREIGN KEY (`id_item`) REFERENCES `item` (`id_item`) ON DELETE CASCADE ON UPDATE NO ACTION,
+  ADD CONSTRAINT `id_item_attribute` FOREIGN KEY (`id_item_attrubute`) REFERENCES `item_attribute` (`id_item_attribute`) ON DELETE CASCADE ON UPDATE NO ACTION;
+
+--
+-- Ограничения внешнего ключа таблицы `structure`
+--
+ALTER TABLE `structure`
+  ADD CONSTRAINT `id_structure` FOREIGN KEY (`id_structure_parent`) REFERENCES `structure` (`id_structure`) ON DELETE CASCADE ON UPDATE NO ACTION;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
